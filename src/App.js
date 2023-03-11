@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import Counter from './SecondTask';
+import ThirdTask from './ThirdTask'
 function App() {
+  const [task, setTask] = useState('');
+  const [tasksList, setTasksList] = useState([]);
+
+  const handleTaskChange = (event) => {
+    setTask(event.target.value);
+  };
+
+  const handleAddTask = () => {
+    if (task.trim() !== '') {
+      setTasksList([...tasksList, task.trim()]);
+      setTask('');
+    }
+  };
+
+  const handleDeleteTask = (index) => {
+    const newTasksList = [...tasksList];
+    newTasksList.splice(index, 1);
+    setTasksList(newTasksList);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Counter />
+        <ThirdTask/>
+      <h1>Tasks List</h1>
+      <div>
+        <input type="text" value={task} onChange={handleTaskChange} />
+        
+        <button onClick={handleAddTask}>Add</button>
+      </div>
+      <ol>
+        {tasksList.map((task, index) => (
+          <li key={index}>
+            {task}
+            <button onClick={() => handleDeleteTask(index)}>Delete</button>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
