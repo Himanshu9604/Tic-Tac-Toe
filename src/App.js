@@ -1,76 +1,81 @@
-import React, { useRef, useState } from "react";
-import "./App.css";
-import { MdCancel } from "react-icons/md";
+import React from "react";
+import { useState } from "react";
+import "./App.css"
 
-const App = () => {
-  const [text, setText] = useState("");
-  const [todos, setTodos] = useState([]);
-  const initialValue = useRef(0);
+export default function App() {
 
-  const handelChange = (e) => {
-    setText(e.target.value);
-  };
+    //Answer 1
+     const[todo,setTodo]=useState("");
+    const[arr,setArr]=useState(["Do Some Work Now!!"])
 
-  const handelAdding = () => {
-    const newUser = {
-      id: new Date() + text,
-      title: text,
-      status: false,
-    };
-    setTodos([...todos, newUser]);
-    setText("");
-  };
+function handleChange(e) {
+setTodo(e.target.value);
+}
 
-  const handelDelete = (id) => {
-    const filterData = todos.filter((todo) => todo.id != id);
-    setTodos(filterData);
-  };
+function handleText(){
+    setArr([...arr,todo]);
+}
 
-  const handelStatus = (id) => {
-    const updateData = todos.map((item) => {
-      if (item.id === id) {
-        initialValue.current = initialValue.current + 1;
-        return { ...item, status: !item.status };
-      } else {
-        return item;
-      }
-    });
-    setTodos(updateData);
-  };
+// //answer 2
 
-  return (
-    <div className="container">
-      <h1>Pending Task {todos.length - initialValue.current}</h1>
-      <div>
-        {todos &&
-          todos.map((ele, index) => (
-            <div key={index} className="Single-data">
-              {ele.status ? (
-                <p>
-                  {" "}
-                  <strike> {ele.title}</strike>
-                </p>
-              ) : (
-                <p>{ele.title}</p>
-              )}
-              <div>
-                <button onClick={() => handelStatus(ele.id)}>Completed</button>
-                <MdCancel
-                  className="icon"
-                  onClick={() => handelDelete(ele.id)}
-                />
-              </div>
-            </div>
-          ))}
-      </div>
-      <div className="input-part">
-        <input type="text" value={text} onChange={(e) => handelChange(e)}/>
-        <button onClick={handelAdding}>Add</button>
-        
-      </div>
+const[count,setCount]=useState(0);
+function handleIncrease(){
+    setCount(count+1);
+}
+function handleDecrease(){
+    setCount(count-1 );
+}
+
+// //answer3
+const[target,setTarget]=useState(true)
+
+function handleName(){
+    setTarget(!target);
+}
+
+return(
+    <div id="Content">
+        <h4>On clicking Add Button will show in below task list</h4>
+         <input value={todo} type="text" onChange={handleChange}/>
+        <button onClick={handleText}>Add</button>
+        <ul>
+            {
+                arr.map((x)=>{
+                    return <p>{x}</p>
+                })
+            }
+        </ul>
+        <br></br><br></br>
+
+        {/* answer 2 */}
+        <h1>{count}</h1>
+        <button onClick={handleIncrease} >Increase</button>
+        <button onClick={handleDecrease}>Decrease</button>
+
+
+
+
+
+
+        <br></br><br></br>
+        {/* answer 3 */}
+        {target? <p>My Name Is Amit</p> : <p>My Name is Rajan</p> }
+        <button onClick={handleName}>Change Name</button>
     </div>
-  );
-};
+);
 
 
-export default App;
+
+//import { useState } from 'react';//
+function LogButtonClicks() {
+  const [count, setCount] = useState(0);
+  
+  const handle = () => {
+    const updatedCount = count + 1;
+    console.log(`Clicked ${updatedCount} times`);
+    setCount(updatedCount);
+  };
+  console.log('I rendered!');
+  return <button onClick={handle}>Click me</button>;
+}
+}
