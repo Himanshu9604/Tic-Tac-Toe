@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-// import Component1 from "./Scrollbar/component1";
+
 import {Board} from  "./TicTacToeGame/Board";
 import { ResetButton } from "./TicTacToeGame/ResetButton";
-// import { ScoreBoard } from ".//ScoreBoard";
 import {ScoreBoard} from "./TicTacToeGame/ScoreBoard";
 import './App.css';
 
@@ -74,10 +73,10 @@ const App = () => {
 
   return (
     <div className="App">
-       {/* <Component1/>  */}
+      
        <ScoreBoard scores={scores} xPlaying={xPlaying} />
       <Board board={board} onClick={gameOver ? resetBoard : handleBoxClick} />
-      <ResetButton resetBoard={resetBoard} />
+      <ResetButton resetBoard={resetBoard} /> 
     </div>
   );
 }
